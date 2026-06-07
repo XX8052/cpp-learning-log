@@ -3,6 +3,7 @@
 This repository records my C++ learning process and small practice projects.
 
 ## Projects
+This folder stores my c++ practice projects.
 
 ### 01 Student Management System
 
@@ -13,12 +14,11 @@ Features:
 - Show all students
 - Calculate average score
 
-## Basic
+## Basics
 
-A folder I restore some basic code with simple grammer, maybe is good for new learner.
+This folder stores some basic C++ practice code with simple syntax, which may be useful for beginners.
 
 
 ## Notes
 
-This is my first C++ mini project.  
-I am still learning the basics, so the code may be simple, but I will keep improving it step by step.
+This section records useful notes from my C++ learning process.
