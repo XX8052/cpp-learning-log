@@ -2,7 +2,7 @@
 #include<string>
 #include<vector>
 using namespace std;
-//自定义类型只能对单个变量设置函数方法 只针对一个变量
+//自定义类型只能对单个变量设置函数方法 只针对一个变量 
 class Student{
 private:
     string n;
@@ -15,7 +15,7 @@ public:
     void show() const{
         cout<<"name: "<<n<<"    score: "<<s<<endl;
     }
-    int getscore() const{
+    int getscore() const{//不传参作用域只能再当前作用域内
         return s;
     }
 };
@@ -55,10 +55,8 @@ int main(){
         cin>>choice;
         if(choice==1){
             addstudents(students);
-
         }
         else if(choice==2){
-
             showstudents(students);
         }
         else if(choice==3){
