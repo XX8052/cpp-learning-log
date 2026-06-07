@@ -18,6 +18,8 @@ public:
         accountid=a;
         property=p;
     }
+    //类里面函数最好围绕自己干活 针对单一变量
+    //vector 里找对象这种“管理一堆对象”的活，不适合塞进单个 BankAccount 里！！！
     void addmoney(vector<Bankaccount>& bankaccounts,int id,int add){
         for(int i=0;i<bankaccounts.size();i++){
             if(bankaccounts[i].verify(id)) {
