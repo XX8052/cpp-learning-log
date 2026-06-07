@@ -73,7 +73,7 @@ int main(){
             cin>>id>>money;
             bankaccounts[0].takemoney(bankaccounts,id,money);
         }
-        else if(choice=4){
+        else if(choice==4){
             int id;
             cout<<"enter your accountid";
             cin>>id;
