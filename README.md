@@ -16,11 +16,13 @@ Features:
 - Show all students
 - Calculate average score
 
+<br>
 
 ## Basics
 
 This folder stores some basic C++ practice code with simple syntax, which may be useful for beginners.
 
+<br>
 
 ## Debug Notes
 
