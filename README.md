@@ -26,4 +26,4 @@ This folder stores some basic C++ practice code with simple syntax, which may be
 
 ## Debug Notes
 
-This section records sonme errors I have made and some inspiration I get from my C++ learning process.
+This section records some errors I have made and some inspiration I get from my C++ learning process.
