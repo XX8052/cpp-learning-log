@@ -16,6 +16,15 @@ Features:
 - Show all students
 - Calculate average score
 
+### 02 Bank Account Management System
+
+A simple C++ console program for managing bank account information. Features:
+
+- Add bank accounts
+- Deposit money
+- Withdraw money
+- Show account information
+
 <br>
 
 ## Basics
