@@ -1,4 +1,5 @@
---- cpp
+### example code
+``` cpp
         else if(choice==4){
             int id;
             cout<<endl<<"--Bank Account Showing System--"<<endl<<"please enter your account id "<<endl;
@@ -16,4 +17,4 @@
                 cout << "Account not found" << endl;
             }
         }
----
+```
