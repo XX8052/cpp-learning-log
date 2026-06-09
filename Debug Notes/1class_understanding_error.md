@@ -1,4 +1,8 @@
-## Wrong Code
+# Worng Error
+
+I first use for loop in class,and don't realize class attribute is for the exact one attribute. For loop should use in main , for all the attribute.
+
+## Wrong Code For Example
 ```cpp
 #include<iostream>
 #include<string>
