@@ -1,6 +1,15 @@
-# Worng Error
+# Mistake: Putting Vector Search Logic Inside a Single Class
 
-I first use for loop in class,and don't realize class attribute is for the exact one attribute. For loop should use in main , for all the attribute.
+At first, I put a for loop inside the BankAccount class and passed the whole vector<BankAccount> into a member function.
+
+This was a design mistake. A BankAccount object should mainly manage its own data, such as its account ID, owner name, and balance. It should not be responsible for managing the entire account list.
+
+The better design is:
+
+AccountBank class: handles one account's own data and actions.
+Normal functions or a manager class: handle operations on the whole vector, such as searching for an account by ID.
+
+<br>
 
 ## Wrong Code For Example
 ```cpp
