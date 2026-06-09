@@ -6,8 +6,8 @@ This was a design mistake. A BankAccount object should mainly manage its own dat
 
 The better design is:
 
-AccountBank class: handles one account's own data and actions.
-Normal functions or a manager class: handle operations on the whole vector, such as searching for an account by ID.
+- AccountBank class: handles one account's own data and actions.
+- Normal functions or a manager class: handle operations on the whole vector, such as searching for an account by ID.
 
 <br>
 
