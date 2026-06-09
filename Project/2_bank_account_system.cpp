@@ -1,90 +1,130 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#include <limits>
 using namespace std;
+
 class Bankaccount{
 private:
     string name;
     int accountid;
     double property;
-    bool verify(int id){
-        if(accountid==id){
-            return true;
-        }
-    }
 public:
+    bool verify(int id){
+        return id==accountid;
+    }
     Bankaccount(string n,int a,double p){
         name=n;
         accountid=a;
         property=p;
     }
-    //类里面函数最好围绕自己干活 针对单一变量
-    //vector 里找对象这种“管理一堆对象”的活，不适合塞进单个 BankAccount 里！！！
-    void addmoney(vector<Bankaccount>& bankaccounts,int id,int add){
-        for(int i=0;i<bankaccounts.size();i++){
-            if(bankaccounts[i].verify(id)) {
-                bankaccounts[i].property+=add;
-            }
+    void addmoney(int add){
+        if (add > 0) {
+            property += add;
+            cout << "Deposit successful." << endl;
+        }
+        else {
+            cout << "Invalid amount." << endl;
         }
     }
-    void takemoney(vector<Bankaccount>& bankaccounts,int id,int add){
-        for(int i=0;i<bankaccounts.size();i++){
-            if(bankaccounts[i].verify(id)) {
-                bankaccounts[i].property-=add;
-            }
+    void takemoney(int take){
+        if (take <= 0) {
+            cout << "Invalid amount." << endl;
+        }
+        else if (take > property) {
+            cout << "Not enough balance." << endl;
+        }
+        else{
+            property-=take;
+            cout << "Withdrawal successful." << endl;
         }
     }
-    void show(vector<Bankaccount>& bankaccounts,int id){
-        for(int i=0;i<bankaccounts.size();i++){
-            if(bankaccounts[i].verify(id)) {
-                cout<<name<<"  "<<accountid<<"  "<<property<<"  ";
-            }
-        }
+    void show(){
+        cout<<"Name:  "<<name<<"  Account Id:  "<<accountid<<"  Balance:  "<<property<<endl;
+        cout << "searching successful." << endl;
     }
 };
+
 void addaccount(vector<Bankaccount>& bankaccounts){
     string name;
     int accountid;
     double property;
-    cout<<"please enter: name  accountid  property";
+    cout<<"Bank Account Deposite System"<<endl<<"please enter:your name  accountid  property"<<endl;
     cin>>name>>accountid>>property;
-    bankaccounts.push_back(Bankaccount(name,accountid,property));
-
+    if(property>0){
+        bankaccounts.push_back(Bankaccount(name,accountid,property));
+        cout<<"Command executed successfully"<<endl;
+    }
+    else{
+        cout<<"invalid data";
+    }
 }
+void pauseScreen() {
+    cout<< endl<<"Press Enter to continue...";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin.get();
+}
+
 int main(){
     vector<Bankaccount> bankaccounts;
     int choice;
-    cout<<endl<<"choose your intention"<<endl;
-    cout<<"1 add acconts"<<endl<<"2 deposit"<<endl<<"3 take"<<endl<<"4 showaccounts"<<endl<<"else break the syestem";
     while(true){
+        cout<<endl<<"choose your intention"<<endl;
+        cout<<"1 add acconts"<<endl<<"2 deposit"<<endl<<"3 take"<<endl<<"4 showaccounts"<<endl<<"else break the syestem"<<endl;
         cin>>choice;
         if(choice==1){
             addaccount(bankaccounts);
+            pauseScreen();
         }
         else if(choice==2){
             int id;
-            int money;
-            cout<<"please enter id money";
+            double money;
+            cout<<endl<<"Bank Account Deposite System"<<endl<<"please enter your account id and money"<<endl;
             cin>>id>>money;
-            bankaccounts[0].addmoney(bankaccounts,id,money);
+            for(int i=0;i<bankaccounts.size();i++){
+                if(bankaccounts[i].verify(id)){
+                    bankaccounts[i].addmoney(money);
+                    pauseScreen();
+                    break;
+                }
+
+            }
         }
         else if(choice==3){
             int id;
-            int money;
-            cout<<"please enter id money";
+            double money;
+            cout<<endl<<"Bank Account Withdrawal System"<<endl<<"please enter your account id and money"<<endl;
             cin>>id>>money;
-            bankaccounts[0].takemoney(bankaccounts,id,money);
+            for(int i=0;i<bankaccounts.size();i++){
+                if(bankaccounts[i].verify(id)){
+                    bankaccounts[i].takemoney(money);
+                    pauseScreen();
+                    break;
+                }
+            }
         }
         else if(choice==4){
             int id;
-            cout<<"enter your accountid";
+            cout<<endl<<"Bank Account Showing System"<<endl<<"please enter your account id "<<endl;
             cin>>id;
-            bankaccounts[0].show(bankaccounts,id);
+            bool found=false;
+            for(int i=0;i<bankaccounts.size();i++){
+                if(bankaccounts[i].verify(id)){
+                    bankaccounts[i].show();
+                    pauseScreen();
+                    bool found = true;
+                    break;
+                }
+            }
+            if(!found){
+                cout << "Account not found" << endl;
+            }
         }
         else{
+            cout<<endl<<"System exits successfully";
             break;
         }
-        cout<<endl<<"what next";
     }
     return 0;
 }
+
