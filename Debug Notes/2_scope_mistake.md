@@ -8,7 +8,7 @@
             for(int i=0;i<bankaccounts.size();i++){
                 if(bankaccounts[i].verify(id)){
                     bankaccounts[i].show();
-                    bool found = true;
+                    bool found = true;        //this found is  new which is in different scope;delete bool;
                     pauseScreen();
                     break;
                 }
