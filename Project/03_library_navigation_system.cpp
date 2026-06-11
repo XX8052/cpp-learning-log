@@ -91,7 +91,7 @@ int main(){
     while(true){
         if(!(cin>>choice)){                                         //instruction+condition verifying
             cin.clear();                                            //clear the wrong state;
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');     //delete wrong data;
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');     //delete wrong data;or it continues to exist 
             cout<<"invalid information,please retry";                //make sure the cin is right;
             continue;
         }
