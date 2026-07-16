@@ -10,6 +10,7 @@ private:
     int floor;
     string location;
     string description;
+
 public:
     Libraryarea(string n,int f,string l,string d){
         name=n;
@@ -17,20 +18,20 @@ public:
         location=l;
         description=d;
     }
-    bool matchname(string n){
+    bool matchname(const string& n){
         return name==n;
     }
-    bool matchfloor(int f){
+    bool matchfloor(const int& f){
         return f==floor;
     }
-    bool matchlocation(string l){
+    bool matchlocation(const string& l){
         return l==location;
     }
-    void show(){
+    void show()const{
         cout<<"name  "<<name<<"  Floor  "<<floor<<"F  "<<"location  "<<location<<"  description  "<<description<<endl;
     }
     void showname(){
-        cout<<name<<endl;
+        cout<<"   "<<name<<endl;
     }
     void saveToFile(ofstream& fout) const {
         fout << name << endl;
@@ -40,13 +41,15 @@ public:
     }
 };
 
-bool isBlank(const string& s){
+bool isBlank(const string& s) {
     return s.find_first_not_of(" \t\r\n") == string::npos;
 }
+
 void cleandata(){                                           //clean useless \n. <>declare the data type ::declare scope
      cin.ignore(numeric_limits<streamsize>::max(), '\n');     //numeric_limits template tools
 }
-void cinint(int &n){                //verify the cin "int" data
+
+void cinint(int &n) {                //verify the cin "int" data
     while(true){
         if(!(cin>>n)){
             cout<<"invalid information"<<endl<<"please retry"<<endl;
@@ -59,38 +62,41 @@ void cinint(int &n){                //verify the cin "int" data
         }
     }
 }
-void cinstring(string &n){              //verify the string data
-    while(true){
-        getline(cin,n);
-        if(n.empty()||isBlank(n)){
-            cout<<"invalid information"<<endl<<"please retry"<<endl;
-            cin.clear();            //onle ignore after cin;
-        }
-        else{
+
+void cinstring(string& n) {
+    while (true) {
+        getline(cin, n);
+
+        if (!isBlank(n)) {
             break;
         }
+
+        cout << "invalid information" << endl;
+        cout << "please retry" << endl;
     }
 }
+
 void showMenu() {
     cout << endl;
     cout << "===== Library Navigation System =====" << endl;
-    cout << "1. Show all areas" << endl;
-    cout << "2. Search area by name" << endl;
-    cout << "3. Search area by floor" << endl;
-    cout << "4. Show area details" << endl;
-    cout<<"5.Add area information"<<endl;
-    cout << "6. Save data" << endl;
-    cout << "7. Exit" << endl;
-    cout << "Choose: ";
+    cout << "    1. Show all areas" << endl;
+    cout << "    2. Search area by name" << endl;
+    cout << "    3. Search area by floor" << endl;
+    cout << "    4. Show area details" << endl;
+    cout << "    5.Add area information"<<endl;
+    cout << "    6. Save data" << endl;
+    cout << "    7. Exit" << endl;
+    cout << "input your choice: ";
 }
 
-void Setdefault(vector<Libraryarea>& libraryareas){         //& must be used,otherwise the function receives a copy of the variable, so the original value is not modified.
+void setDefaultAreas(vector<Libraryarea>& libraryareas){         //& must be used,otherwise the function receives a copy of the variable, so the original value is not modified.
     libraryareas.push_back(Libraryarea( "Reading Room", 1," East Area","Quiet study area"));//just data,type is not needed
     libraryareas.push_back(Libraryarea( "Borrowing Desk", 1,"Main Hall","Borrow and return books"));
     libraryareas.push_back(Libraryarea( "Computer Books", 3,"North Area","Programming and CS books"));
-    libraryareas.push_back(Libraryarea( "Printing Area", 2,"Near Exit","Public restroom"));
+    libraryareas.push_back(Libraryarea( "Printing Area", 2,"Near Exit","Printing and copying service·"));
     libraryareas.push_back(Libraryarea( "Discussion Room", 4,"South Area","Group study and discussion"));
 }  
+
 void saveareas(const vector<Libraryarea>& libraryareas){
     ofstream fout("04_library_areas_information.txt");             // ofstream opens the file in overwrite
     if(!fout){
@@ -104,6 +110,7 @@ void saveareas(const vector<Libraryarea>& libraryareas){
     fout.close();
     cout << "Data saved successfully." << endl;
 }
+
 void loadareas(vector<Libraryarea>& libraryareas){
     ifstream fin("04_library_areas_information.txt");
     if(!fin){
@@ -129,47 +136,71 @@ void loadareas(vector<Libraryarea>& libraryareas){
     fin.close();
     cout << "Data loaded successfully." << endl;
 }
+void pauseScreen() {
+    cout << endl;
+    cout << "Press Enter to continue...";
+    cin.get();
+}
+
 int main(){
     vector<Libraryarea> libraryareas;
-    Setdefault(libraryareas);
+    setDefaultAreas(libraryareas);
     int choice;
-    showMenu();
     loadareas(libraryareas);
     while(true){
+    showMenu();
         if(!(cin>>choice)){                                         //instruction+condition verifying
             cin.clear();                                            //clear the wrong state;
             cin.ignore(numeric_limits<streamsize>::max(),'\n');     //delete wrong data;
             cout<<"invalid information,please retry";                //make sure the cin is right;
             continue; 
         }
-        else if(choice<1||choice>7){
+        cleandata();
+        if(choice<1||choice>7){
             cout<<"invalid information";                       
             continue;
         }
         if(choice==1){
-            cout<<"====Area Information===="<<endl;
+            cout<<endl<<"====Area Information===="<<endl;
             for(int i=0;i<libraryareas.size();i++){
                 libraryareas[i].showname();
             }
+            pauseScreen();
          }
         else if(choice==2){
+            bool found=0;
             cout<<"enter the name:";
             string name;
             cinstring(name);
             for(int i=0;i<libraryareas.size();i++){
                 if(libraryareas[i].matchname(name)){
                     libraryareas[i].show();
+                    found=1;
+                    pauseScreen();
                     break;
+                }
+                if(!found){
+                    cout<<"No area found with this name." << endl;
+                    pauseScreen();
                 }
             }
         }
         else if(choice==3){
+            bool found=0;
             cout<<"enter the floor:";
             int floor;
             cinint(floor);
             for(int i=0;i<libraryareas.size();i++){
                 if(libraryareas[i].matchfloor(floor)){
-                libraryareas[i].show();
+                    libraryareas[i].show();
+                    found=1;
+                }
+                if(found){
+                    pauseScreen();
+                }
+                if(!found){
+                    cout<<"No area found with this floor." << endl;
+                    pauseScreen();
                 }
             }
         }
@@ -177,6 +208,7 @@ int main(){
             for(int i=0;i<libraryareas.size();i++){
                 libraryareas[i].show();
             }
+            pauseScreen();
         }
         else if(choice==5){
             cout<<"enter name floor location discription to add"<<endl;
@@ -184,8 +216,7 @@ int main(){
             int f;
             string l;
             string d;
-            cout << "Name: ";           
-            cleandata();            //not press enter again!before input data! clean data before the code;not when instruct;
+            cout << "Name: ";                      //not press enter again!before input data! clean data before the code;not when instruct;
             cinstring(n);
             cout << "Floor: ";
             cinint(f);
@@ -194,12 +225,15 @@ int main(){
             cout << "Description: ";
             cinstring(d);      
             libraryareas.push_back(Libraryarea(n,f,l,d));       
-            cout<<"store successfully";         
+            cout<<"store successfully";  
+            pauseScreen();       
         }
         else if(choice==6){
             saveareas(libraryareas);
+            pauseScreen();
         }
         else {
+            cout<<"exit successfully";
             break;
         }
         cout<<endl<<"choose to continue"<<endl;
