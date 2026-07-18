@@ -33,11 +33,10 @@ class Libraryarea {
     }
 
     void show() const {
-        cout << endl
-             << "Name  " << name << endl
-             << "Floor  " << floor << "F" << endl
-             << "Location  " << location << endl
-             << "Description  " << description << endl;
+        cout << "Name:  " << name << endl
+             << "Floor:  " << floor << "F" << endl
+             << "Location:  " << location << endl
+             << "Description:  " << description<<endl;
     }
 
     void showname() const {
@@ -95,7 +94,7 @@ void showMenu() {
     cout << "    2. Search area by name" << endl;
     cout << "    3. Search area by floor" << endl;
     cout << "    4. Show area details" << endl;
-    cout << "    5.Add area information" << endl;
+    cout << "    5. Add area information" << endl;
     cout << "    6. Save data" << endl;
     cout << "    7. Exit" << endl;
     cout << "input your choice: ";
@@ -108,7 +107,7 @@ void showMenuwrong() {
     cout << "    2. Search area by name" << endl;
     cout << "    3. Search area by floor" << endl;
     cout << "    4. Show area details" << endl;
-    cout << "    5.Add area information" << endl;
+    cout << "    5. Add area information" << endl;
     cout << "    6. Save data" << endl;
     cout << "    7. Exit" << endl;
     cout << "make sure your input is valid: ";
@@ -118,7 +117,7 @@ void setDefaultAreas(vector<Libraryarea>& libraryareas) {
     libraryareas.push_back(Libraryarea("Reading Room", 1, " East Area", "Quiet study area"));
     libraryareas.push_back(Libraryarea("Borrowing Desk", 1, "Main Hall", "Borrow and return books"));
     libraryareas.push_back(Libraryarea("Computer Books", 3, "North Area", "Programming and CS books"));
-    libraryareas.push_back(Libraryarea("Printing Ar ea", 2, "Near Exit", "Printing and copying service·"));
+    libraryareas.push_back(Libraryarea("Printing Area", 2, "Near Exit", "Printing and copying service·"));
     libraryareas.push_back(Libraryarea("Discussion Room", 4, "South Area", "Group study and discussion"));
 }
 
@@ -177,44 +176,51 @@ void pauseScreen() {
 
 void searchName(vector<Libraryarea>& Libraryareas) {
     bool found = 0;
-    cout << "enter the name:";
+    cout << "Enter the name:";
     string name;
     cinstring(name);
+    cout <<endl<<"==== Search Result ===="<<endl;
 
     for (int i = 0; i < Libraryareas.size(); i++) {
         if (Libraryareas[i].matchname(name)) {
             Libraryareas[i].show();
             found = 1;
+            cout<<"Search succussfully."<<endl;
             pauseScreen();
             break;
         }
+    }
 
-        if (!found) {
-            cout << "No area found with this name." << endl;
-            pauseScreen();
-        }
+    if (!found) {
+        cout << "No area found with this name." << endl;
+        pauseScreen();
     }
 }
 
 void searchFloor(vector<Libraryarea>& Libraryareas) {
     bool found = 0;
-    cout << "enter the floor:";
+    cout << "Enter the floor:";
     int floor;
+    int num=0;
     cinint(floor);
+    cout <<endl<<"==== Search Result ===="<<endl;
+
     for (int i = 0; i < Libraryareas.size(); i++) {
         if (Libraryareas[i].matchfloor(floor)) {
+            num++;
+            cout<<num<<"."<<endl;
             Libraryareas[i].show();
             found = 1;
         }
+    }
 
-        if (found) {
-            pauseScreen();
-        }
+    if (found) {
+        pauseScreen();
+    }
 
-        if (!found) {
-            cout << "No area found with this floor." << endl;
-            pauseScreen();
-        }
+    if (!found) {
+        cout << "No area found with this floor." << endl;
+        pauseScreen();
     }
 }
 
@@ -242,7 +248,7 @@ int main() {
         }
 
         if (choice == 1) {
-            cout << endl << "====Area Information====" << endl;
+            cout << endl << "==== Area Informationss ====" << endl;
             for (int i = 0; i < Libraryareas.size(); i++) {
                 Libraryareas[i].showname();
             }
@@ -258,10 +264,13 @@ int main() {
         }
 
         else if (choice == 4) {
+            cout <<endl<< "==== Area Details ====";
             for (int i = 0; i < Libraryareas.size(); i++) {
+                cout << endl << i + 1 <<"."<< endl;
                 Libraryareas[i].show();
             }
 
+            cout << endl;
             pauseScreen();
         }
 
@@ -280,7 +289,7 @@ int main() {
             cout << "Description: ";
             cinstring(d);
             Libraryareas.push_back(Libraryarea(n, f, l, d));
-            cout << "store successfully";
+            cout << "store successfully"<<endl;
             pauseScreen();
         }
 
@@ -290,11 +299,11 @@ int main() {
         }
 
         else {
-            cout << "exit successfully";
+            cout << "exit successfully"<<endl;
             break;
         }
 
-        cout << endl << "choose to continue" << endl;
+        showMenu();
     }
     return 0;
 }
