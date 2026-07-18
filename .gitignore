@@ -1,6 +1,0 @@
-*.exe
-*.o
-*.obj
-*.out
-build/
-bin/
