@@ -1,5 +1,6 @@
 # C++ formatting rules
 
+
 BasedOnStyle: Google
 IndentWidth: 4
 TabWidth: 4
