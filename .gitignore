@@ -1,12 +1,12 @@
-# C/C++ 编译产物
+# Ignore generated files
 *.exe
 *.o
 *.obj
 *.out
 
-# 构建文件夹
+
 build/
 bin/
 
-# 图书馆项目运行数据
+
 **/04_library_areas_information.txt
