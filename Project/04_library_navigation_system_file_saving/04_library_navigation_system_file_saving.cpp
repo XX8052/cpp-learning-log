@@ -36,7 +36,7 @@ class Libraryarea {
         cout << "Name:  " << name << endl
              << "Floor:  " << floor << "F" << endl
              << "Location:  " << location << endl
-             << "Description:  " << description<<endl;
+             << "Description:  " << description << endl;
     }
 
     void showname() const {
@@ -59,7 +59,7 @@ void cleandata() {
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-void cinint(int& n) {  // verify the cin "int" data
+void cinint(int& n) {  
     while (true) {
         if (!(cin >> n)) {
             cout << "invalid information" << endl << "please retry" << endl;
@@ -121,6 +121,12 @@ void setDefaultAreas(vector<Libraryarea>& libraryareas) {
     libraryareas.push_back(Libraryarea("Discussion Room", 4, "South Area", "Group study and discussion"));
 }
 
+void pauseScreen() {
+    cout << endl;
+    cout << "Press Enter to continue...";
+    cin.get();
+}
+
 void saveareas(const vector<Libraryarea>& libraryareas) {
     ofstream fout("04_library_areas_information.txt");
 
@@ -136,6 +142,7 @@ void saveareas(const vector<Libraryarea>& libraryareas) {
 
     fout.close();
     cout << "Data saved successfully." << endl;
+    pauseScreen();
 }
 
 void loadareas(vector<Libraryarea>& libraryareas) {
@@ -168,24 +175,26 @@ void loadareas(vector<Libraryarea>& libraryareas) {
     cout << "Data loaded successfully." << endl;
 }
 
-void pauseScreen() {
-    cout << endl;
-    cout << "Press Enter to continue...";
-    cin.get();
+void showAreas(const vector<Libraryarea>& Libraryareas) {
+    cout << endl << "==== Area Informationss ====" << endl;
+    for (int i = 0; i < Libraryareas.size(); i++) {
+        Libraryareas[i].showname();
+    }
+    pauseScreen();
 }
 
-void searchName(vector<Libraryarea>& Libraryareas) {
+void searchName(const vector<Libraryarea>& Libraryareas) {
     bool found = 0;
     cout << "Enter the name:";
     string name;
     cinstring(name);
-    cout <<endl<<"==== Search Result ===="<<endl;
+    cout << endl << "==== Search Result ====" << endl;
 
     for (int i = 0; i < Libraryareas.size(); i++) {
         if (Libraryareas[i].matchname(name)) {
             Libraryareas[i].show();
             found = 1;
-            cout<<"Search succussfully."<<endl;
+            cout << "Search succussfully." << endl;
             pauseScreen();
             break;
         }
@@ -201,14 +210,14 @@ void searchFloor(vector<Libraryarea>& Libraryareas) {
     bool found = 0;
     cout << "Enter the floor:";
     int floor;
-    int num=0;
+    int num = 0;
     cinint(floor);
-    cout <<endl<<"==== Search Result ===="<<endl;
+    cout << endl << "==== Search Result ====" << endl;
 
     for (int i = 0; i < Libraryareas.size(); i++) {
         if (Libraryareas[i].matchfloor(floor)) {
             num++;
-            cout<<num<<"."<<endl;
+            cout << num << "." << endl;
             Libraryareas[i].show();
             found = 1;
         }
@@ -222,6 +231,35 @@ void searchFloor(vector<Libraryarea>& Libraryareas) {
         cout << "No area found with this floor." << endl;
         pauseScreen();
     }
+}
+
+void showDetails(vector<Libraryarea>& Libraryareas) {
+    cout << endl << "==== Area Details ====";
+    for (int i = 0; i < Libraryareas.size(); i++) {
+        cout << endl << i + 1 << "." << endl;
+        Libraryareas[i].show();
+    }
+
+    cout << endl;
+    pauseScreen();
+}
+void addInformation(vector<Libraryarea>& Libraryareas) {
+    cout << "enter name floor location discription to add" << endl;
+    string n;
+    int f;
+    string l;
+    string d;
+    cout << "Name: ";
+    cinstring(n);
+    cout << "Floor: ";
+    cinint(f);
+    cout << "Location: ";
+    cinstring(l);
+    cout << "Description: ";
+    cinstring(d);
+    Libraryareas.push_back(Libraryarea(n, f, l, d));
+    cout << "store successfully" << endl;
+    pauseScreen();
 }
 
 int main() {
@@ -248,11 +286,7 @@ int main() {
         }
 
         if (choice == 1) {
-            cout << endl << "==== Area Informationss ====" << endl;
-            for (int i = 0; i < Libraryareas.size(); i++) {
-                Libraryareas[i].showname();
-            }
-            pauseScreen();
+            showAreas(Libraryareas);
         }
 
         else if (choice == 2) {
@@ -264,42 +298,19 @@ int main() {
         }
 
         else if (choice == 4) {
-            cout <<endl<< "==== Area Details ====";
-            for (int i = 0; i < Libraryareas.size(); i++) {
-                cout << endl << i + 1 <<"."<< endl;
-                Libraryareas[i].show();
-            }
-
-            cout << endl;
-            pauseScreen();
+            showDetails(Libraryareas);
         }
 
         else if (choice == 5) {
-            cout << "enter name floor location discription to add" << endl;
-            string n;
-            int f;
-            string l;
-            string d;
-            cout << "Name: ";
-            cinstring(n);
-            cout << "Floor: ";
-            cinint(f);
-            cout << "Location: ";
-            cinstring(l);
-            cout << "Description: ";
-            cinstring(d);
-            Libraryareas.push_back(Libraryarea(n, f, l, d));
-            cout << "store successfully"<<endl;
-            pauseScreen();
+            addInformation(Libraryareas);
         }
 
         else if (choice == 6) {
             saveareas(Libraryareas);
-            pauseScreen();
         }
 
         else {
-            cout << "exit successfully"<<endl;
+            cout << "exit successfully" << endl;
             break;
         }
 
