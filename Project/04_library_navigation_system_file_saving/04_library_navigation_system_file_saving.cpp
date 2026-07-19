@@ -282,6 +282,7 @@ int main() {
 
         if (choice < 1 || choice > 7) {
             cout << "invalid information";
+            showMenuwrong();
             continue;
         }
 
