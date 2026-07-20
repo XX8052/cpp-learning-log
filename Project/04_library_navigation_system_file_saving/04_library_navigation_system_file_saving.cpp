@@ -59,7 +59,7 @@ void cleandata() {
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-void cinint(int& n) {  
+void cinint(int& n) {
     while (true) {
         if (!(cin >> n)) {
             cout << "invalid information" << endl << "please retry" << endl;
@@ -87,7 +87,7 @@ void cinstring(string& n) {
     }
 }
 
-void showMenu() {
+void showMenu(bool status) {
     cout << endl;
     cout << "===== Library Navigation System =====" << endl;
     cout << "    1. Show all areas" << endl;
@@ -97,20 +97,11 @@ void showMenu() {
     cout << "    5. Add area information" << endl;
     cout << "    6. Save data" << endl;
     cout << "    7. Exit" << endl;
-    cout << "input your choice: ";
-}
-
-void showMenuwrong() {
-    cout << endl;
-    cout << "===== Library Navigation System =====" << endl;
-    cout << "    1. Show all areas" << endl;
-    cout << "    2. Search area by name" << endl;
-    cout << "    3. Search area by floor" << endl;
-    cout << "    4. Show area details" << endl;
-    cout << "    5. Add area information" << endl;
-    cout << "    6. Save data" << endl;
-    cout << "    7. Exit" << endl;
-    cout << "make sure your input is valid: ";
+    if (status) {
+        cout << "input your choice: ";
+    } else {
+        cout << "make sure your input is valid: ";
+    }
 }
 
 void setDefaultAreas(vector<Libraryarea>& libraryareas) {
@@ -258,7 +249,7 @@ void addInformation(vector<Libraryarea>& Libraryareas) {
     cout << "Description: ";
     cinstring(d);
     Libraryareas.push_back(Libraryarea(n, f, l, d));
-    cout << "store successfully" << endl;
+    cout << "record successfully,input 6 if you want to store the information" << endl;
     pauseScreen();
 }
 
@@ -267,22 +258,22 @@ int main() {
     setDefaultAreas(Libraryareas);
     int choice;
     loadareas(Libraryareas);
-    showMenu();
+    showMenu(true);
 
     while (true) {
         if (!(cin >> choice)) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "invalid information,please retry";
-            showMenuwrong();
+            cout << "invalid information,please retry" << endl;
+            showMenu(false);
             continue;
         }
 
         cleandata();
 
         if (choice < 1 || choice > 7) {
-            cout << "invalid information";
-            showMenuwrong();
+            cout << "invalid information,please retry" << endl;
+            showMenu(false);
             continue;
         }
 
@@ -315,7 +306,7 @@ int main() {
             break;
         }
 
-        showMenu();
+        showMenu(true);
     }
     return 0;
 }
