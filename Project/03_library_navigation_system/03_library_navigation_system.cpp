@@ -36,23 +36,23 @@ public:
 bool isBlank(const string& s){
     return s.find_first_not_of(" \t\r\n") == string::npos;
 }
-void cleandata(){                                           //clean useless \n. <>declare the data type ::declare scope
+void cleanInputBuffer(){                                           //clean useless \n. <>declare the data type ::declare scope
      cin.ignore(numeric_limits<streamsize>::max(), '\n');     //numeric_limits template tools
 }
-void cinint(int &n){                //verify the cin "int" data
+void inputInt(int &n){                //verify the cin "int" data
     while(true){
         if(!(cin>>n)){
             cout<<"invalid information"<<endl<<"please retry"<<endl;
             cin.clear();
-            cleandata();
+            cleanInputBuffer();
         }
         else{
-            cleandata();
+            cleanInputBuffer();
             break;
         }
     }
 }
-void cinstring(string &n){              //verify the string data
+void inputstring(string &n){              //verify the string data
     while(true){
         getline(cin,n);
         if(n.empty()||isBlank(n)){
@@ -108,7 +108,7 @@ int main(){
         else if(choice==2){
             cout<<"enter the name:";
             string name;
-            cinstring(name);
+            inputstring(name);
             for(int i=0;i<libraryareas.size();i++){
                 if(libraryareas[i].matchname(name)){
                     libraryareas[i].show();
@@ -119,7 +119,7 @@ int main(){
         else if(choice==3){
             cout<<"enter the floor:";
             int floor;
-            cinint(floor);
+            inputInt(floor);
             for(int i=0;i<libraryareas.size();i++){
                 if(libraryareas[i].matchfloor(floor)){
                 libraryareas[i].show();
@@ -138,14 +138,14 @@ int main(){
             string l;
             string d;
             cout << "Name: ";           
-            cleandata();            //not press enter again!before input data! clean data before the code;not when instruct;
-            cinstring(n);
+            cleanInputBuffer();            //not press enter again!before input data! clean data before the code;not when instruct;
+            inputstring(n);
             cout << "Floor: ";
-            cinint(f);
+            inputInt(f);
             cout << "Location: ";
-            cinstring(l);
+            inputstring(l);
             cout << "Description: ";
-            cinstring(d);      
+            inputstring(d);      
             libraryareas.push_back(Libraryarea(n,f,l,d));       
             cout<<"store successfully";         
         }
