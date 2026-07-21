@@ -263,7 +263,7 @@ int main() {
     while (true) {
         if (!(cin >> choice)) {
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cleandata();
             cout << "invalid information,please retry" << endl;
             showMenu(false);
             continue;
