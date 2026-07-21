@@ -40,7 +40,7 @@ class Libraryarea {
     }
 
     void showname() const {
-        cout << "   " << name << endl;
+        cout << "    " << name << endl;
     }
 
     void saveToFile(ofstream& fout) const {
@@ -87,9 +87,9 @@ void cinstring(string& n) {
     }
 }
 
-void showMenu(bool status) {
+void showMenu() {
     cout << endl;
-    cout << "===== Library Navigation System =====" << endl;
+    cout << "===== Library Navigation System =====" << endl<<endl;
     cout << "    1. Show all areas" << endl;
     cout << "    2. Search area by name" << endl;
     cout << "    3. Search area by floor" << endl;
@@ -97,11 +97,7 @@ void showMenu(bool status) {
     cout << "    5. Add area information" << endl;
     cout << "    6. Save data" << endl;
     cout << "    7. Exit" << endl;
-    if (status) {
-        cout << "input your choice: ";
-    } else {
-        cout << "make sure your input is valid: ";
-    }
+    cout << "input your choice: ";
 }
 
 void setDefaultAreas(vector<Libraryarea>& libraryareas) {
@@ -167,7 +163,7 @@ void loadareas(vector<Libraryarea>& libraryareas) {
 }
 
 void showAreas(const vector<Libraryarea>& Libraryareas) {
-    cout << endl << "==== Area Informationss ====" << endl;
+    cout << endl << "==== Area Informationss ====" << endl<<endl;
     for (int i = 0; i < Libraryareas.size(); i++) {
         Libraryareas[i].showname();
     }
@@ -179,7 +175,7 @@ void searchName(const vector<Libraryarea>& Libraryareas) {
     cout << "Enter the name:";
     string name;
     cinstring(name);
-    cout << endl << "==== Search Result ====" << endl;
+    cout << endl << "==== Search Result ====" << endl<<endl;
 
     for (int i = 0; i < Libraryareas.size(); i++) {
         if (Libraryareas[i].matchname(name)) {
@@ -203,7 +199,7 @@ void searchFloor(vector<Libraryarea>& Libraryareas) {
     int floor;
     int num = 0;
     cinint(floor);
-    cout << endl << "==== Search Result ====" << endl;
+    cout << endl << "==== Search Result ====" << endl<<endl;
 
     for (int i = 0; i < Libraryareas.size(); i++) {
         if (Libraryareas[i].matchfloor(floor)) {
@@ -258,22 +254,13 @@ int main() {
     setDefaultAreas(Libraryareas);
     int choice;
     loadareas(Libraryareas);
-    showMenu(true);
 
     while (true) {
-        if (!(cin >> choice)) {
-            cin.clear();
-            cleandata();
-            cout << "invalid information,please retry" << endl;
-            showMenu(false);
-            continue;
-        }
-
-        cleandata();
+        showMenu();
+        cinint(choice);
 
         if (choice < 1 || choice > 7) {
             cout << "invalid information,please retry" << endl;
-            showMenu(false);
             continue;
         }
 
@@ -306,7 +293,6 @@ int main() {
             break;
         }
 
-        showMenu(true);
     }
     return 0;
 }
